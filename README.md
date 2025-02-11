@@ -30,9 +30,9 @@
 
 ## 🤝 Contributing  
 
-Contributions to **✨ PhippsAI** are highly encouraged! 🌟  
+Contributions to **✨ AIToolkit** are highly encouraged! 🌟  
 - 🐛 **Report Issues:** Submit issues if you encounter bugs or need help.  
-- 💡 **Suggest Features:** Share your ideas to make **PhippsAI** even better.  
+- 💡 **Suggest Features:** Share your ideas to make **AIToolkit** even better.  
 - 🔧 **Create Pull Requests:** Help expand the capabilities and robustness of the library.  
 
 Your contributions make a difference! 🙌✨
@@ -40,7 +40,7 @@ Your contributions make a difference! 🙌✨
 #### Contributors 👥🤝
 <br/>
 
-<a href="https://github.com/tinyBigGAMES/PhippsAI/graphs/contributors">
+<a href="https://github.com/tinyBigGAMES/AIToolkit/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=tinyBigGAMES/AIToolkit&max=250&columns=10&anon=1" />
 </a>
 
