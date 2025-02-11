@@ -24,6 +24,15 @@
 
 ## 📺 Media
 
+🌊 Deep Dive Podcast  
+Discover in-depth discussions and insights about AIToolkit and its innovative features. 🚀✨
+
+https://github.com/user-attachments/assets/8dc0d7af-c2af-4e7a-a5f7-bf8ead2b7e80
+
+🚀 AIToolkit in Action!  
+🌐 Showing how it will use the 🔎 **web_search** tool to get the latest 📢 up-to-date information.
+
+https://github.com/user-attachments/assets/14c306d2-114e-4121-8171-a5c500a804b8
 
 ## 🛠️ Support and Resources
 
