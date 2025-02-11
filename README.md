@@ -22,6 +22,40 @@
 
 ---
 
+## 🛠️ Key Functionalities
+
+### 🖥️ Model Loading & GPU Optimization  
+- AIToolkit allows you to load **multiple models** across **CPU, GPU, or a hybrid setup**.  
+- Control GPU usage with:  
+  - 🎯 **`MainGPU`** – Select which GPU device to use.  
+  - 📊 **`GPULayers`** – Define how many layers to load on the GPU:  
+    - `GPULayers = 0` ➝ Model runs fully on **CPU**.  
+    - `GPULayers = N` ➝ N layers load onto **GPU**, the rest remain in **system memory**.  
+    - `MainGPU = -1 & GPULayers = -1` ➝ **Auto-selects the best GPU** and loads the model fully onto it.  
+
+#### 📥 Download & Setup  
+1. **Download the model** from our **Hugging Face** account:  
+   - [DeepSeek-R1-Distill-Llama-8B-Abliterated (Q4_K_M-GGUF)](https://huggingface.co/tinybiggames/DeepSeek-R1-Distill-Llama-8B-abliterated-Q4_K_M-GGUF/resolve/main/deepseek-r1-distill-llama-8b-abliterated-q4_k_m.gguf?download=true)  
+2. **Place the model in your desired directory** (example directory used in code):  
+   - 📂 `C:/LLM/GGUF`  
+
+### 🔄 Always Up-to-Date with Llama.cpp  
+- ✅ Stays aligned with the **latest llama.cpp** releases for **performance & compatibility improvements**.  
+
+### 🛠️ Modular Kit-Based Design  
+- Everything is in **kit form** (Messages, Inference, Tools, etc.), so you can **mix, match, and extend** as needed.  
+
+### 🔍 Web Search Integration  
+- 🌐 Powered by **Tavily.com** for **seamless web search capabilities**.  
+- 🆓 **Get your search API key** from [Tavily](https://tavily.com/)  
+  - 🎁 Includes **1,000 free tokens per month**  
+  - 🔑 **Set up your API key**:  
+    - Create an **environment variable** named **`TAVILY_API_KEY`** and assign it to your API key.  
+
+### ⚙️ Automated Tool Registration  
+- 🔧 **Auto-registers tools** from published **static class methods**.  
+- 📜 **Generates JSON schema** required for LLM tool execution—no manual setup needed!  
+
 ## 📺 Media
 
 🌊 Deep Dive Podcast  
