@@ -22,6 +22,9 @@
 
 ---
 
+## 📺 Media
+
+
 ## 🛠️ Support and Resources
 
 - 🐞 **Report issues** via the [Issue Tracker](https://github.com/tinyBigGAMES/AIToolkit/issues).
