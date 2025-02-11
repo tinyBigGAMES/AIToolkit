@@ -38,9 +38,7 @@ const
   { CatToolCallPrompt }
   CatToolCallPrompt =
   '''
-  The current date: %s
-
-  The current time: %s
+  The present date and time is: %s
 
   You are provided with function signatures within `tools` JSON array.
 
@@ -50,7 +48,7 @@ const
 
   Available tools:
   [
-    %s
+  %s
   ]
 
   When requests correspond to these tools, respond by outputting a list of function calls, one per line, in the following structure:
@@ -214,13 +212,8 @@ var
   LPair: TPair<string, TTool>;
   LSchemes: string;
   I: Integer;
-  LDate: string;
-  LTime: string;
 begin
   Result := '';
-
-  LDate := Format('%s', [FormatDateTime('mmmm, dd, yyyy', Now)]);
-  LTime := Format('%s', [FormatDateTime('mmmm, dd, yyyy - hh:nn:ss AM/PM', Now)]);
 
   LSchemes := '';
 
@@ -235,7 +228,7 @@ begin
     LSchemes := LSchemes.Remove(I, 3);
   end;
 
-  Result := Format(CatToolCallPrompt, [LDate, LTime, LSchemes]);
+  Result := Format(CatToolCallPrompt, [atUtils.GetLocalDateTime(), LSchemes]);
 end;
 
 class function  TatTools.ResponsePrompt(const AQuestion, AResponse: string): string;

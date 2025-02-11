@@ -40,6 +40,27 @@ const
   // Max inference context used
   CMaxContext = 1024*4;
 
+type
+  // Tools static class
+  {$M+}
+  MyTools = class
+  published
+    // Document the tool method
+    [atSchemaDescription('Provides access to the internet to perform a web search and return the answer as a string. Only call when you can not answer the query and for real-time, time sensitive information')]
+    class function web_search(
+      // Document the tool method params
+      [atSchemaDescription('A string containing the result of the search query')]
+       query: string
+    ): string; static;
+  end;
+  {$M-}
+
+// Websearch tool function
+class function MyTools.web_search(query: string): string;
+begin
+  Result := atWebSearch(query.Trim()).Trim();
+end;
+
 // Get random "think" end messages
 function GetRandomThinkingResult: string;
 const
@@ -56,7 +77,6 @@ const
     'Solution ready! Check this out:'
   );
 begin
-  Randomize();
   Result := Messages[Random(Length(Messages))];
 end;
 
@@ -80,36 +100,12 @@ begin
   atConsole.PrintLn(atCSIFGCyan+GetRandomThinkingResult());
 end;
 
-type
-  {$M+}
-
-  // Tools static class
-  MyTools = class
-  published
-    [atSchemaDescription('Provides access to the internet to perform a web search and return the answer as a string. Only call when you can not answer the query and for real-time, time sensitive information')]
-    class function web_search(
-      [atSchemaDescription('A string containing the result of the search query')]
-       query: string
-    ): string; static;
-
-  end;
-  {$M-}
-
-// Websearch tool function
-class function MyTools.web_search(query: string): string;
-begin
-  Result := atWebSearch(query.Trim()).Trim();
-end;
-
 procedure Test();
-
 var
   LTools: TatTools;
   LMessages: TatMessagesDeepSeekR1;
   LInference: TatInferenceDeepSeekR1;
-
   LQuestion: string;
-
   LTokenSpeed: Single;
   LInputTokens: Integer;
   LOutputTokens: Integer;
@@ -150,8 +146,12 @@ begin
                 // Do web search on Arg value (query)
                 LResponse := atUtils.CallStaticMethod(AToolCall.GetClass(), AToolCall.FuncName, [LArgs.Value]).AsString;
 
-                // Add result as a user message
+                // Clear current messages
                 AMessages.Clear();
+
+                // Add search result as a user message - its formatted to
+                // instruct the LLM to display a promper response based on
+                // the query
                 AMessages.Add(atUser, LResponse);
               end;
 
@@ -167,27 +167,45 @@ begin
             end
           );
 
+          atConsole.PrintLn(LTools.CallPrompt());
+          atConsole.PrintLn();
+
+          // Set the "think" start event handler
           LInference.ThinkStartEvent := ThinkStartEvent;
+
+          // Set the "think" end event handler
           LInference.ThinkEndEvent := ThinkEndEvent;
+
+          // Set show thinking tokens on/off
           LInference.ShowThinking := CShowThinking;
+
+          // Set the next token event handler
           LInference.NextTokenEvent := NextTokenEvent;
 
-          LInference.LoadModel(CAIToolkit_Reasoning, -1, -1);
+          // Try to load the reasoning mode
+          if not LInference.LoadModel(CAIToolkit_Reasoning, -1, -1) then Exit;
 
+          //
           LMessages.Add(atUser, LTools.CallPrompt());
 
           // default question is nothing else is defined
           LQuestion := 'what is AI?';
 
-          //LQuestion := 'what is bill gates current net worth as of 2025';
+          LQuestion := 'what is bill gates current net worth as of 2025';
           //LQuestion := 'who is bill gates?';
-          //LQuestion := 'what is the current U.S. natial debt as of 2025?';
+          //LQuestion := 'what is the current U.S. national debt as of 2025?';
           //LQuestion := 'what is KNO3?';
           LQuestion := 'how many r''s are there in the word starawberry';
           //LQuestion := 'what is the latest status on the forest fires in california in 2025?';
           //LQuestion := 'detail steps how to make KNO3.';
+          //LQuestion := 'what is the current date and time?';
 
+          // Add question as a "user" message
           LMessages.Add(atUser, LQuestion);
+
+          // Display user question
+          atConsole.PrintLn(atCSIFGYellow+'Question: %s', [LMessages.LastUser()]);
+          atConsole.PrintLn();
 
           // Do inference
           if LInference.Run(LMessages, CMaxContext) then

@@ -22,6 +22,7 @@ interface
 uses
   WinApi.Windows,
   System.SysUtils,
+  System.DateUtils,
   System.StrUtils,
   System.Classes,
   System.JSON,
@@ -67,6 +68,9 @@ type
     class function  GetJsonSchema(const AClass: TClass; const AMethodName: string): string; static;
     class function  GetJsonSchemas(AClass: TClass): string; static;
     class function  CallStaticMethod(const AClass: TClass; const AMethodName: string; const Args: array of TValue): TValue;
+    class function  GetISO8601DateTime(): string;
+    class function  GetISO8601DateTimeLocal(): string;
+    class function  GetLocalDateTime(): string;
     class function  TavilyWebSearch(const AAPIKey, AQuery: string): string; static;
   end;
 
@@ -511,6 +515,40 @@ begin
   finally
     Context.Free;
   end;
+end;
+
+class function atUtils.GetISO8601DateTime(): string;
+begin
+  Result := FormatDateTime('yyyy-mm-dd"T"hh:nn:ss"Z"', Now);
+end;
+
+class function atUtils.GetISO8601DateTimeLocal(): string;
+var
+  TZI: TTimeZoneInformation;
+  Bias, HoursOffset, MinsOffset: Integer;
+  TimeZoneStr: string;
+begin
+  case GetTimeZoneInformation(TZI) of
+    TIME_ZONE_ID_STANDARD, TIME_ZONE_ID_DAYLIGHT:
+      Bias := TZI.Bias + TZI.DaylightBias; // Adjust for daylight saving time
+    else
+      Bias := 0; // Default to UTC if timezone is unknown
+  end;
+
+  HoursOffset := Abs(Bias) div 60;
+  MinsOffset := Abs(Bias) mod 60;
+
+  if Bias = 0 then
+    TimeZoneStr := 'Z'
+  else
+    TimeZoneStr := Format('%s%.2d:%.2d', [IfThen(Bias > 0, '-', '+'), HoursOffset, MinsOffset]);
+
+  Result := FormatDateTime('yyyy-mm-dd"T"hh:nn:ss', Now) + TimeZoneStr;
+end;
+
+class function atUtils.GetLocalDateTime(): string;
+begin
+ Result := FormatDateTime('dddd, dd mmmm yyyy hh:nn:ss AM/PM', Now);
 end;
 
 class function atUtils.TavilyWebSearch(const AAPIKey, AQuery: string): string;

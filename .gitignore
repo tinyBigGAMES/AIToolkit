@@ -82,3 +82,4 @@ modules/
 
 # AIToolkit
 *.dsv
+zip_latest_commit.cmd
