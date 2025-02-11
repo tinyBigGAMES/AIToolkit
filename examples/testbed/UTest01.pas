@@ -167,8 +167,8 @@ begin
             end
           );
 
-          atConsole.PrintLn(LTools.CallPrompt());
-          atConsole.PrintLn();
+          //atConsole.PrintLn(LTools.CallPrompt());
+          //atConsole.PrintLn();
 
           // Set the "think" start event handler
           LInference.ThinkStartEvent := ThinkStartEvent;

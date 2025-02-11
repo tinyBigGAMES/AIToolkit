@@ -63,22 +63,9 @@ const
 
   Transform the text inside <question></question> into a well-formatted <answer></answer>.
 
-  Transformation Rules:
-  1. Use the exact text from the question.
-  2. Apply only:
-     - Basic grammar corrections
-     - Simple connecting words for readability
-
-  Strict Guidelines:
-  - Do NOT modify the meaning.
-  - Do NOT add or remove information.
-  - Do NOT infer, assume, or introduce new details.
-  - Do NOT explain, justify, or reason.
-  - Simply return the formatted text.
-
   Output format:
   <answer>
-  [output]
+  Transformed text  here
   </answer>
   ''';
 
