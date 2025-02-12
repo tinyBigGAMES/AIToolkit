@@ -21,7 +21,6 @@ program Testbed;
 
 uses
   System.SysUtils,
-  MemoryDLL in '..\..\src\MemoryDLL.pas',
   AIToolkit.CLibs in '..\..\src\AIToolkit.CLibs.pas',
   AIToolkit.Utils in '..\..\src\AIToolkit.Utils.pas',
   AIToolkit.Messages in '..\..\src\AIToolkit.Messages.pas',

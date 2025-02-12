@@ -191,7 +191,7 @@ begin
           // default question is nothing else is defined
           LQuestion := 'what is AI?';
 
-          LQuestion := 'what is bill gates current net worth as of 2025';
+          //LQuestion := 'what is bill gates current net worth as of 2025';
           //LQuestion := 'who is bill gates?';
           //LQuestion := 'what is the current U.S. national debt as of 2025?';
           //LQuestion := 'what is KNO3?';

@@ -254,6 +254,8 @@ end;
 
 procedure TatInference_CErrCallback(const AText: PUTF8Char; AUserData: Pointer); cdecl;
 begin
+  if Assigned(AUserData) then
+    TatInference(AUserData).OnInfo(GGML_LOG_LEVEL_ERROR, Utf8ToString(AText));
 end;
 
 procedure TatInference_LogCallback(ALevel: ggml_log_level; const AText: PUTF8Char; AUserData: Pointer); cdecl;
