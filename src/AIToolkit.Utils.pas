@@ -22,6 +22,7 @@ interface
 uses
   WinApi.Windows,
   System.SysUtils,
+  System.IOUtils,
   System.DateUtils,
   System.StrUtils,
   System.Classes,
@@ -50,7 +51,6 @@ type
     class destructor Destroy();
   public
     class procedure UnitInit();
-    class procedure GetConsoleSize(AWidth: PInteger; AHeight: PInteger); static;
     class function  AsUTF8(const AText: string): Pointer; static;
     class function  GetPhysicalProcessorCount(): DWORD; static;
     class function  EnableVirtualTerminalProcessing(): DWORD; static;
@@ -71,6 +71,7 @@ type
     class function  GetISO8601DateTime(): string;
     class function  GetISO8601DateTimeLocal(): string;
     class function  GetLocalDateTime(): string;
+    class function  HasEnoughDiskSpace(const AFilePath: string; ARequiredSize: Int64): Boolean;
     class function  TavilyWebSearch(const AAPIKey, AQuery: string): string; static;
   end;
 
@@ -98,7 +99,9 @@ type
     class operator Initialize (out ADest: TatTokenResponse);
     property RightMargin: Integer read FRightMargin;
     property MaxLineLength: Integer read FMaxLineLength;
+    function  GetRightMargin(): Integer;
     procedure SetRightMargin(const AMargin: Integer);
+    function  GetMaxLineLength(): Integer;
     procedure SetMaxLineLength(const ALength: Integer);
     function AddToken(const aToken: string): TatTokenPrintAction;
     function LastWord(const ATrimLeft: Boolean=False): string;
@@ -107,6 +110,9 @@ type
   end;
 
 implementation
+
+uses
+  AIToolkit.Console;
 
 var
   LMarshaller: TMarshaller;
@@ -130,18 +136,6 @@ end;
 class procedure atUtils.UnitInit();
 begin
   // force constructor
-end;
-
-class procedure atUtils.GetConsoleSize(AWidth: PInteger; AHeight: PInteger);
-var
-  LConsoleInfo: TConsoleScreenBufferInfo;
-begin
-  GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), LConsoleInfo);
-  if Assigned(AWidth) then
-    AWidth^ := LConsoleInfo.dwSize.X;
-
-  if Assigned(AHeight) then
-  AHeight^ := LConsoleInfo.dwSize.Y;
 end;
 
 class function  atUtils.AsUTF8(const AText: string): Pointer;
@@ -551,6 +545,28 @@ begin
  Result := FormatDateTime('dddd, dd mmmm yyyy hh:nn:ss AM/PM', Now);
 end;
 
+class function atUtils.HasEnoughDiskSpace(const AFilePath: string; ARequiredSize: Int64): Boolean;
+var
+  LFreeAvailable, LTotalSpace, LTotalFree: Int64;
+  LDrive: string;
+begin
+  Result := False;
+
+  // Resolve the absolute path in case of a relative path
+  LDrive := ExtractFileDrive(TPath.GetFullPath(AFilePath));
+
+  // If there is no drive letter, use the current drive
+  if LDrive = '' then
+    LDrive := ExtractFileDrive(TDirectory.GetCurrentDirectory);
+
+  // Ensure drive has a trailing backslash
+  if LDrive <> '' then
+    LDrive := LDrive + '\';
+
+  if GetDiskFreeSpaceEx(PChar(LDrive), LFreeAvailable, LTotalSpace, @LTotalFree) then
+    Result := LFreeAvailable >= ARequiredSize;
+end;
+
 class function atUtils.TavilyWebSearch(const AAPIKey, AQuery: string): string;
 var
   HttpClient: THTTPClient;
@@ -657,7 +673,8 @@ begin
 
   ADest.SetRightMargin(10);
 
-  atUtils.GetConsoleSize(@LSize, nil);
+  LSize := 120;
+  atConsole.GetSize(@LSize, nil);
   ADest.SetMaxLineLength(LSize);
 end;
 
@@ -804,9 +821,19 @@ begin
   Result := FMaxLineLength - FRightMargin;
 end;
 
+function  TatTokenResponse.GetRightMargin(): Integer;
+begin
+  Result := FRightMargin;
+end;
+
 procedure TatTokenResponse.SetRightMargin(const AMargin: Integer);
 begin
   FRightMargin := AMargin;
+end;
+
+function  TatTokenResponse.GetMaxLineLength(): Integer;
+begin
+  Result := FMaxLineLength;
 end;
 
 procedure TatTokenResponse.SetMaxLineLength(const ALength: Integer);

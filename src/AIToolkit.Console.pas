@@ -411,6 +411,8 @@ class procedure atConsole.GetSize(AWidth: PInteger; AHeight: PInteger);
 var
   LConsoleInfo: TConsoleScreenBufferInfo;
 begin
+  if not HasOutput() then Exit;
+
   GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), LConsoleInfo);
   if Assigned(AWidth) then
     AWidth^ := LConsoleInfo.dwSize.X;

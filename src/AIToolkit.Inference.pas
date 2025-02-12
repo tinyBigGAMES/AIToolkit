@@ -73,6 +73,11 @@ type
     procedure OnStart(); virtual;
     procedure OnEnd(); virtual;
     function  OnCancel(): Boolean; virtual;
+
+    function  GetTokenRightMargin(): Integer;
+    procedure SetTokenRightMargin(const AValue: Integer);
+    function  GetTokenMaxLineLength(): Integer;
+    procedure SetTokenMaxLineLength(const AValue: Integer);
   public
     constructor Create(); override;
     destructor Destroy(); override;
@@ -87,6 +92,9 @@ type
     function  Run(const AMessages: TatMessages; const AMaxContext: Cardinal=1024; const AMaxThreads: Integer=-1): Boolean;
     function  Response(): string;
     procedure Performance(const AlInputTokens: PInteger; AOutputTokens: PInteger; ATokenSpeed: PSingle);
+
+    property  TokenRightMargin: Integer read GetTokenRightMargin write SetTokenRightMargin;
+    property  TokenMaxLineLength: Integer read GetTokenMaxLineLength write SetTokenMaxLineLength;
 
     property  Stream: Boolean read FStream write FStream;
 
@@ -228,6 +236,26 @@ begin
     Result := FOnCancelEvent()
   else
     Result := Boolean(GetAsyncKeyState(VK_ESCAPE) <> 0);
+end;
+
+function  TatInference.GetTokenRightMargin(): Integer;
+begin
+  Result := FTokenResponse.GetRightMargin();
+end;
+
+procedure TatInference.SetTokenRightMargin(const AValue: Integer);
+begin
+  FTokenResponse.SetRightMargin(AValue);
+end;
+
+function  TatInference.GetTokenMaxLineLength(): Integer;
+begin
+  Result := FTokenResponse.GetMaxLineLength();
+end;
+
+procedure TatInference.SetTokenMaxLineLength(const AValue: Integer);
+begin
+  FTokenResponse.SetMaxLineLength(AValue);
 end;
 
 constructor TatInference.Create();
