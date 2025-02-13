@@ -37,37 +37,33 @@ const
 
   { CatToolCallPrompt }
   CatToolCallPrompt =
-  '''
-  The present date and time is: %s
-
-  You are provided with function signatures within `tools` JSON array.
-
-  You may call one or more functions to assist with the user query.
-
-  IMPORTANT: If you know about the use query, just answer it directly and DO NOT USE a tool.
-
-  Available tools:
-  [
-  %s
-  ]
-
-  When requests correspond to these tools, respond by outputting a list of function calls, one per line, in the following structure:
-  [func_name1(params_name1=params_value1, params_name2=params_value2...), func_name2(params_name1=params_value1...), func_name3(params...), {additional function calls as needed, one per line}]
-  ''';
+  'The present date and time is: %s'#13#10+
+  #13#10+
+  'You are provided with function signatures within `tools` JSON array.'#13#10+
+  #13#10+
+  'You may call one or more functions to assist with the user query.'#13#10+
+  #13#10+
+  'IMPORTANT: If you know about the use query, just answer it directly and DO NOT USE a tool.'#13#10+
+  #13#10+
+  'Available tools:'#13#10+
+  '['#13#10+
+  '%s'#13#10+
+  ']'#13#10+
+  #13#10+
+  'When requests correspond to these tools, respond by outputting a list of function calls, one per line, in the following structure:'#13#10+
+  '[func_name1(params_name1=params_value1, params_name2=params_value2...), func_name2(params_name1=params_value1...), func_name3(params...), {additional function calls as needed, one per line}]'#13#10;
 
   { CtaToolResponsePrompt }
   CtaToolResponsePrompt =
-  '''
-  <question>%s</question>
-  <answer>%s</answer>
-
-  Transform the text inside <question></question> into a well-formatted <answer></answer>.
-
-  Output format:
-  <answer>
-  Transformed text  here
-  </answer>
-  ''';
+  '<question>%s</question>'#13#10+
+  '<answer>%s</answer>'#13#10+
+  #13#10+
+  'Transform the text inside <question></question> into a well-formatted <answer></answer>.'#13#10+
+  #13#10+
+  'Output format:'#13#10+
+  '<answer>'#13#10+
+  'Transformed text  here'#13#10+
+  '</answer>'#13#10;
 
 type
   { TatParamArg }

@@ -96,7 +96,7 @@ type
     function SplitWord(const AWord: string; var APrefix, ASuffix: string): Boolean;
     function GetLineLengthMax(): Integer;
   public
-    class operator Initialize (out ADest: TatTokenResponse);
+    procedure Initialize;
     property RightMargin: Integer read FRightMargin;
     property MaxLineLength: Integer read FMaxLineLength;
     function  GetRightMargin(): Integer;
@@ -587,11 +587,11 @@ begin
       JsonRequest.AddPair('api_key', AAPIKey);
       JsonRequest.AddPair('query', AQuery);
       JsonRequest.AddPair('include_answer', 'advanced'); // Include 'include_answer' parameter
-      JsonRequest.AddPair('include_answer', True);
-      JsonRequest.AddPair('include_images', False);
-      JsonRequest.AddPair('include_image_descriptions', False);
-      JsonRequest.AddPair('include_raw_content', False);
-      JsonRequest.AddPair('max_results', 5);
+      JsonRequest.AddPair('include_answer', TJSONBool.Create(True));
+      JsonRequest.AddPair('include_images', TJSONBool.Create(False));
+      JsonRequest.AddPair('include_image_descriptions', TJSONBool.Create(False));
+      JsonRequest.AddPair('include_raw_content', TJSONBool.Create(False));
+      JsonRequest.AddPair('max_results', TJSONNumber.Create(5));
       JsonRequest.AddPair('include_domains', TJSONArray.Create); // Empty array
       JsonRequest.AddPair('exclude_domains', TJSONArray.Create); // Empty array
 
@@ -639,43 +639,43 @@ begin
 end;
 
 { TatTokenResponse }
-class operator TatTokenResponse.Initialize (out ADest: TatTokenResponse);
+procedure TatTokenResponse.Initialize;
 var
   LSize: Integer;
 begin
   // Defaults
-  ADest.FRaw := '';
-  SetLength(ADest.FTokens, 0);
-  SetLength(ADest.FWordBreaks, 0);
-  SetLength(ADest.FLineBreaks, 0);
-  SetLength(ADest.FWords, 0);
-  ADest.FWord := '';
-  ADest.FLine := '';
-  ADest.FFinalized := False;
-  ADest.FRightMargin := 10;
+  FRaw := '';
+  SetLength(FTokens, 0);
+  SetLength(FWordBreaks, 0);
+  SetLength(FLineBreaks, 0);
+  SetLength(FWords, 0);
+  FWord := '';
+  FLine := '';
+  FFinalized := False;
+  FRightMargin := 10;
 
   // If stream output is sent to a destination without wordwrap,
   // the TatTokenResponse will find wordbreaks and split into lines by full words
 
   // Stream is tabulated into full words based on these break characters
   // !Syntax requires at least one!
-  SetLength(ADest.FWordBreaks, 4);
-  ADest.FWordBreaks[0] := ' ';
-  ADest.FWordBreaks[1] := '-';
-  ADest.FWordBreaks[2] := ',';
-  ADest.FWordBreaks[3] := '.';
+  SetLength(FWordBreaks, 4);
+  FWordBreaks[0] := ' ';
+  FWordBreaks[1] := '-';
+  FWordBreaks[2] := ',';
+  FWordBreaks[3] := '.';
 
   // Stream may contain forced line breaks
   // !Syntax requires at least one!
-  SetLength(ADest.FLineBreaks, 2);
-  ADest.FLineBreaks[0] := #13;
-  ADest.FLineBreaks[1] := #10;
+  SetLength(FLineBreaks, 2);
+  FLineBreaks[0] := #13;
+  FLineBreaks[1] := #10;
 
-  ADest.SetRightMargin(10);
+  SetRightMargin(10);
 
   LSize := 120;
   atConsole.GetSize(@LSize, nil);
-  ADest.SetMaxLineLength(LSize);
+  SetMaxLineLength(LSize);
 end;
 
 function TatTokenResponse.AddToken(const aToken: string): TatTokenPrintAction;
