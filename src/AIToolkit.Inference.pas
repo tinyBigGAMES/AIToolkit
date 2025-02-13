@@ -261,6 +261,7 @@ end;
 constructor TatInference.Create();
 begin
   inherited;
+  FTokenResponse.Initialize;
   FStream := True;
 end;
 
