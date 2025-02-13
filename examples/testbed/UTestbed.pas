@@ -21,7 +21,8 @@ uses
   System.SysUtils,
   AIToolkit.Common,
   AIToolkit.Console,
-  UTest01;
+  UTest01,
+  UTest02;
 
 procedure RunTests();
 
@@ -48,10 +49,11 @@ begin
   atConsole.PrintLn(atCSIFGMagenta+'AIToolkit v%s', [CatAIToolkitVersion]);
   atConsole.PrintLn();
 
-  LNum := 01;
+  LNum := 02;
 
   case LNum of
-    01: UTest01.Test();
+    01: UTest01.Test(); // function calling example
+    02: UTest02.Test(); // thinking deeper example
   end;
 
   atConsole.Pause();

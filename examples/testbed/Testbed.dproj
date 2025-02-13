@@ -126,6 +126,7 @@
         <DCCReference Include="..\..\src\AIToolkit.Tools.pas"/>
         <DCCReference Include="..\..\src\AIToolkit.Console.pas"/>
         <DCCReference Include="UTest01.pas"/>
+        <DCCReference Include="UTest02.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

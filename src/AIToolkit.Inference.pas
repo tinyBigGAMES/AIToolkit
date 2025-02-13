@@ -92,6 +92,7 @@ type
     function  Run(const AMessages: TatMessages; const AMaxContext: Cardinal=1024; const AMaxThreads: Integer=-1): Boolean;
     function  Response(): string;
     procedure Performance(const AlInputTokens: PInteger; AOutputTokens: PInteger; ATokenSpeed: PSingle);
+    procedure ClearTokenResponse();
 
     property  TokenRightMargin: Integer read GetTokenRightMargin write SetTokenRightMargin;
     property  TokenMaxLineLength: Integer read GetTokenMaxLineLength write SetTokenMaxLineLength;
@@ -119,6 +120,7 @@ type
     constructor Create(); override;
     destructor Destroy(); override;
 
+    property  Thinking: Boolean read FThinking;
     property  ShowThinking: Boolean read FShowThinking write FShowThinking;
     property  ThinkStartEvent: TatEvent read FOnThinkStartEvent write FOnThinkStartEvent;
     property  ThinkEndEvent: TatEvent read FOnThinkEndEvent write FOnThinkEndEvent;
@@ -283,8 +285,8 @@ end;
 
 procedure TatInference_CErrCallback(const AText: PUTF8Char; AUserData: Pointer); cdecl;
 begin
-  if Assigned(AUserData) then
-    TatInference(AUserData).OnInfo(GGML_LOG_LEVEL_ERROR, Utf8ToString(AText));
+  //if Assigned(AUserData) then
+  //  TatInference(AUserData).OnInfo(GGML_LOG_LEVEL_ERROR, Utf8ToString(AText));
 end;
 
 procedure TatInference_LogCallback(ALevel: ggml_log_level; const AText: PUTF8Char; AUserData: Pointer); cdecl;
@@ -598,6 +600,11 @@ begin
 
   if Assigned(ATokenSpeed) then
     ATokenSpeed^ := FTokenSpeed;
+end;
+
+procedure TatInference.ClearTokenResponse();
+begin
+  FTokenResponse.Clear();
 end;
 
 { TatInferenceDeepSeekR1 }

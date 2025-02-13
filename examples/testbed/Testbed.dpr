@@ -29,13 +29,9 @@ uses
   AIToolkit.Inference in '..\..\src\AIToolkit.Inference.pas',
   AIToolkit.Tools in '..\..\src\AIToolkit.Tools.pas',
   AIToolkit.Console in '..\..\src\AIToolkit.Console.pas',
-  UTest01 in 'UTest01.pas';
+  UTest01 in 'UTest01.pas',
+  UTest02 in 'UTest02.pas';
 
 begin
-  try
-    RunTests();
-  except
-    on E: Exception do
-      Writeln(E.ClassName, ': ', E.Message);
-  end;
+  RunTests();
 end.

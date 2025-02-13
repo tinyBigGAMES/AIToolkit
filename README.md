@@ -87,7 +87,7 @@ Your contributions make a difference! 🙌✨
 <br/>
 
 <a href="https://github.com/tinyBigGAMES/AIToolkit/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=tinyBigGAMES/AIToolkit&max=250&columns=10&anon=1" />
+  <img src="https://contrib.rocks/image?repo=tinyBigGAMES/AIToolkit&max=500&columns=20&anon=1" />
 </a>
 
 ## 📜 Licensing
