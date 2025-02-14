@@ -30,7 +30,8 @@ uses
   AIToolkit.Tools in '..\..\src\AIToolkit.Tools.pas',
   AIToolkit.Console in '..\..\src\AIToolkit.Console.pas',
   UTest01 in 'UTest01.pas',
-  UTest02 in 'UTest02.pas';
+  UTest02 in 'UTest02.pas',
+  UTest03 in 'UTest03.pas';
 
 begin
   RunTests();

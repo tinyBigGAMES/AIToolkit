@@ -1,0 +1,52 @@
+You were asked this question:
+%s
+
+You generated this output:
+%s
+
+Now, engage in a multi-level analysis of your response:
+
+1. First Principles Analysis:
+- What core assumptions underlie your reasoning?
+- Are these assumptions valid in all cases?
+- What fundamental principles or concepts did you draw from? sLineBreak +
+
+2. Structural Evaluation:
+- Is the information organized in the most logical flow?
+- Are there any gaps in the progression of ideas?
+- Could the structure better serve the user''s needs? sLineBreak +
+
+3. Technical Accuracy:
+- Verify each claim and statement
+- Check for hidden edge cases or exceptions
+- Identify any oversimplifications sLineBreak +
+
+4. Clarity & Accessibility:
+- Would someone without domain expertise understand this?
+- Are technical terms adequately explained?
+- Are examples concrete and relevant? sLineBreak +
+
+5. Efficiency & Conciseness:
+- Is there redundant information?
+- Could any point be made more succinctly?
+- Is every included detail necessary? sLineBreak +
+
+6. Alternative Perspectives:
+- What counter-arguments haven''t been addressed?
+- What different approaches could solve this problem?
+- What contexts might change the validity of this response? sLineBreak +
+
+7. Implementation & Practicality:
+- How easily can this be applied in real-world scenarios?
+- What potential obstacles haven''t been considered?
+- Are there any unstated prerequisites? sLineBreak +
+
+Based on this analysis:
+1. List specific improvements needed
+2. Develop an enhanced solution incorporating these improvements
+3. Verify the new solution addresses all identified issues
+4. Iterate if necessary until the response is optimal sLineBreak +
+
+Output your improved response with these enhancements implemented. sLineBreak +
+
+Remember to be explicit about any remaining limitations or assumptions in your final response.';

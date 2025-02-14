@@ -162,16 +162,16 @@ begin
   if LContent.IsEmpty then Exit;
 
   if SameText(LRole, atSystem) then
-    LMsg := '<|im_start|>system\n' + LContent + '<|im_end|>'
+    LMsg := '<|im_start|>system' + LContent + '<|im_end|>'
   else
   if SameText(LRole, atUser) then
-    LMsg := '<|im_start|>user\n' + LContent + '<|im_end|>'
+    LMsg := '<|im_start|>user' + LContent + '<|im_end|>'
   else
   if SameText(LRole, atAssistant) then
-    LMsg := '<|im_start|>assistant\n' + LContent + '<|im_end|>'
+    LMsg := '<|im_start|>assistant' + LContent + '<|im_end|>'
   else
   if SameText(LRole, atTool) then
-    LMsg := '<|im_start|>tool\n' + LContent + '<|im_end|>';
+    LMsg := '<|im_start|>tool' + LContent + '<|im_end|>';
 
   AddRaw(LMsg);
 end;
