@@ -90,6 +90,7 @@ Your contributions make a difference! 🙌✨
   <img src="https://contrib.rocks/image?repo=tinyBigGAMES/AIToolkit&max=500&columns=20&anon=1" />
 </a>
 
+
 ## 📜 Licensing
 
 **AIToolkit** is distributed under the **🆓 BSD-3-Clause License**, allowing for redistribution and use in both source and binary forms, with or without modification, under specific conditions.  
